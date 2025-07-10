@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { Alert, TouchableOpacity, TextInput, ScrollView, Text } from 'react-native';
+import { Alert, TouchableOpacity, TextInput, ScrollView, Text, StyleSheet } from 'react-native';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import styleSheet from '../stylesSheetSheet';
-
-//**  Desenvolva uma aplicação de Gerenciamento de Projetos. A aplicação deve permitir criar, istar, editar e excluir projetos e suas 
-// tarefas, com filtros e validações. Implemente uma solução robusta, seguindo boas práticas de código e arquitetura.
-// Inclua testes ou validações e documente o processo no ReadMe*/
 
 const CriarTarefa = ({ navigation }) => {
     const [criarTarefa, setCriarTarefa] = useState('');
@@ -42,7 +37,7 @@ const CriarTarefa = ({ navigation }) => {
         createdAt: serverTimestamp(),
       };
 
-      await addDoc(collection(db, 'tasks'), operationData);
+      await addDoc(collection(db, 'operations'), operationData);
 
       Alert.alert('Sucesso', 'Tarefa salva com sucesso!', [
         { text: 'OK', onPress: () => {
@@ -61,12 +56,12 @@ const CriarTarefa = ({ navigation }) => {
   };
 
     return (
-      <ScrollView style={styleSheet.container}>
+      <ScrollView style={styles.container}>
 
-        <Text style={styleSheet.titulo}>Criar Tarefa</Text>
+        <Text style={styles.titulo}>Criar Tarefa</Text>
 
         <TextInput
-          style={styleSheet.input}
+          style={styles.input}
           placeholder="Digite o nome da tarefa.."
           value={criarTarefa}
           onChangeText={setCriarTarefa}
@@ -74,7 +69,7 @@ const CriarTarefa = ({ navigation }) => {
         />
 
         <TextInput
-          style={styleSheet.input}
+          style={styles.input}
           placeholder="Digite a Descrição da tarefa"
           value={description}
           onChangeText={setDescription}
@@ -82,7 +77,7 @@ const CriarTarefa = ({ navigation }) => {
         />
 
         <TextInput
-          style={styleSheet.input}
+          style={styles.input}
           placeholder="Data esperada até conclusão (dd-mm-yyyy)"
           value={date}
           onChangeText={setDate}
@@ -90,21 +85,70 @@ const CriarTarefa = ({ navigation }) => {
         />
 
         <TouchableOpacity
-          style={[styleSheet.tarefa]}
+          style={[styles.tarefa]}
           onPress={handleCriarTarefa}
           disabled={loading}
         >
-          <Text style={styleSheet.buttonText}>{loading ? 'Salvando...' : 'Criar Tarefa'}</Text>
+          <Text style={styles.buttonText}>{loading ? 'Salvando...' : 'Criar Tarefa'}</Text>
         </TouchableOpacity>
         
         <TouchableOpacity
-          style={[styleSheet.tarefa]}
+          style={[styles.tarefa]}
           disabled={loading}
         >
-          <Text style={styleSheet.buttonText}>{loading ? 'Cancelando.': 'Cancelar'}</Text>
+          <Text style={styles.buttonText}>{loading ? 'Cancelando.': 'Cancelar'}</Text>
         </TouchableOpacity>
       </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F5F5F5',
+        padding: 20,
+        paddingTop: 20,
+    },
+    input: {
+        width: '100%',
+        height: 50,
+        backgroundColor: '#FFF',
+        borderRadius: 8,
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: 'black',
+    },
+    buttonText: {
+        color: '#FFF',
+        fontSize: 18,
+        textAlign: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+    },
+    tarefa: {
+        backgroundColor: '#2196F3',
+        height: 45,
+        borderRadius: 6,
+        alignItems: 'center',
+        ustifyContent: 'center',
+        borderWidth: 1,
+        marginBottom: 15,
+    },
+    titulo: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+        padding: 30,
+        paddingTop: 50,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginBottom: 10,
+    },
+  });
 
 export default CriarTarefa;
