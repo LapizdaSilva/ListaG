@@ -29,5 +29,3 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 4. **Execute no dispositivo/emulador**:
    - Escaneie o QR code gerado pelo Expo Go no seu dispositivo móvel (iOS ou Android).
    - Alternativamente, pressione `a` para abrir no emulador Android ou `i` para o emulador iOS.
-
-```
