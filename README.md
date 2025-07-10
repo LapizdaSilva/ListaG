@@ -25,7 +25,6 @@ Siga os passos abaixo para configurar e executar o projeto localmente:
 3. **Inicie o projeto com Expo**:
    ```bash
    npx expo start
-   ```
 
 4. **Execute no dispositivo/emulador**:
    - Escaneie o QR code gerado pelo Expo Go no seu dispositivo móvel (iOS ou Android).
